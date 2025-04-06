@@ -3,5 +3,8 @@
   "extends": ["ultracite"],
   "files": {
     "ignore": ["build", "dist", "node_modules"]
+  },
+  "javascript": {
+    "globals": ["React"]
   }
 }
