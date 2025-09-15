@@ -5,7 +5,7 @@
     "outDir": "dist",
     "paths": {
       "@repo/*": ["../*"],
-      "@repo/design-system/*": ["./*"]
+      "@repo/ui/*": ["./*"]
     }
   },
   "exclude": ["node_modules", "dist"]
