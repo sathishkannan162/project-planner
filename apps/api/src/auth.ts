@@ -1,13 +1,14 @@
-import * as schema from './db/schema';
+import * as authSchema from './db/schema/auth.schema';
+import * as taskSchema from './db/schema/task';
 
 import { betterAuth } from 'better-auth';
-import { db } from './db/schema';
+import { db } from './db/index';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'pg',
-    schema,
+    schema: { ...taskSchema, ...authSchema },
   }),
   emailAndPassword: {
     enabled: true,

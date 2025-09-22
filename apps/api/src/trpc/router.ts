@@ -1,6 +1,6 @@
 import { db } from '../db/index';
 import { initTRPC } from '@trpc/server';
-import { tasks } from '../db/schema/schema';
+import { tasks } from '../db/schema/task';
 import { z } from 'zod';
 
 const t = initTRPC.create();
