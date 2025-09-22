@@ -1,12 +1,19 @@
 import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import React from 'react';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useLogin } from '../lib/useLogin';
 import { useNavigation } from '@react-navigation/native';
 
-export default function LoginScreen() {
+type RootStackParamList = {
+  Home: undefined;
+  Login: undefined;
+};
+
+type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+
+const LoginScreen: React.FC = () => {
   const { email, setEmail, password, setPassword, error, loading, handleSubmit } = useLogin();
-  const navigation = useNavigation();
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const onSubmit = async () => {
     const result = await handleSubmit();
@@ -39,7 +46,7 @@ export default function LoginScreen() {
       <Button title={loading ? "Logging in..." : "Login"} onPress={onSubmit} disabled={loading} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -65,3 +72,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+export default LoginScreen;
