@@ -1,7 +1,7 @@
 import { TRPCError, initTRPC } from "@trpc/server";
 
 import type { IncomingMessage } from "node:http";
-import { OpenApiMeta } from "trpc-to-openapi";
+import type { OpenApiMeta } from "trpc-to-openapi";
 import { auth } from "../auth";
 import { db } from "../db/index";
 import { eq } from "drizzle-orm";
