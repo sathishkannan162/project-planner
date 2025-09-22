@@ -1,4 +1,6 @@
+'use client'
 import Image, { type ImageProps } from 'next/image';
+import { api } from '../lib/trpc';
 
 import { Button } from '@repo/ui/components/ui/button';
 import styles from './page.module.css';
@@ -20,6 +22,8 @@ const ThemeImage = (props: Props) => {
 };
 
 export default function Home() {
+  const helloQuery = api.hello.useQuery({ name: 'World' });
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -68,6 +72,21 @@ export default function Home() {
           </Button>
         </div>
         <Button variant="outline">Open alert</Button>
+
+        <div className="mt-8 p-4 border rounded">
+          <h2 className="text-lg font-semibold mb-2">tRPC API Example (Powered by React Query)</h2>
+          {helloQuery.isLoading && <p>Loading...</p>}
+          {helloQuery.error && <p>Error: {helloQuery.error.message}</p>}
+          {helloQuery.data && <p>{helloQuery.data}</p>}
+          <Button
+            variant="outline"
+            onClick={() => helloQuery.refetch()}
+            className="mt-2"
+            disabled={helloQuery.isFetching}
+          >
+            {helloQuery.isFetching ? 'Refetching...' : 'Refetch'}
+          </Button>
+        </div>
       </main>
       <footer className={styles.footer}>
         <a
