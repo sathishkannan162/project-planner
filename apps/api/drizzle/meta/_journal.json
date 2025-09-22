@@ -29,6 +29,20 @@
       "when": 1758535758763,
       "tag": "0003_dapper_spectrum",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1758537001286,
+      "tag": "0004_last_franklin_richards",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1758537061802,
+      "tag": "0005_abandoned_strong_guy",
+      "breakpoints": true
     }
   ]
 }

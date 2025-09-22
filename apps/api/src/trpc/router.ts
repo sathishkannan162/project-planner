@@ -1,9 +1,34 @@
+import { TRPCError, initTRPC } from '@trpc/server';
+
+import type { IncomingMessage } from 'node:http';
+import { auth } from '../auth';
 import { db } from '../db/index';
-import { initTRPC } from '@trpc/server';
+import { eq } from 'drizzle-orm';
+import { fromNodeHeaders } from 'better-auth/node';
 import { tasks } from '../db/schema/task';
 import { z } from 'zod';
 
-const t = initTRPC.create();
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+const t = initTRPC.context<{ req: IncomingMessage; session?: any }>().create();
+
+const authMiddleware = t.middleware(async ({ ctx, next }) => {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(ctx.req.headers),
+  });
+
+  if (!session) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+
+  return next({
+    ctx: {
+      ...ctx,
+      session,
+    },
+  });
+});
+
+const protectedProcedure = t.procedure.use(authMiddleware);
 
 export const appRouter = t.router({
   hello: t.procedure
@@ -12,23 +37,27 @@ export const appRouter = t.router({
       return `Hello, ${input.name}!`;
     }),
 
-  getTasks: t.procedure.query(async () => {
-    return await db.select().from(tasks);
+  getTasks: protectedProcedure.query(async ({ ctx }) => {
+    return await db
+      .select()
+      .from(tasks)
+      .where(eq(tasks.userId, ctx.session.user.id));
   }),
 
-  createTask: t.procedure
+  createTask: protectedProcedure
     .input(
       z.object({
         title: z.string().min(1),
         description: z.string().optional(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const [newTask] = await db
         .insert(tasks)
         .values({
           title: input.title,
           description: input.description,
+          userId: ctx.session.user.id,
         })
         .returning();
       return newTask;
