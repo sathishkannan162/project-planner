@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { useSession } from '../lib/auth-client';
 
@@ -6,18 +6,11 @@ const HomeScreen: React.FC = () => {
   const { data: session } = useSession();
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 justify-center items-center">
       <Text>Welcome, {session?.user?.email || 'User'}!</Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default HomeScreen;

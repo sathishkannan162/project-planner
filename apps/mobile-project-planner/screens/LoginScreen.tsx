@@ -1,4 +1,4 @@
-import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, Text, TextInput, View } from 'react-native';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useLogin } from '../lib/useLogin';
@@ -25,11 +25,11 @@ const LoginScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+    <View className="flex-1 justify-center p-5">
+      <Text className="text-2xl text-center mb-5">Login</Text>
+      {error ? <Text className="text-red-500 text-center mb-2.5">{error}</Text> : null}
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 p-2.5 mb-2.5 rounded"
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -37,7 +37,7 @@ const LoginScreen: React.FC = () => {
         autoCapitalize="none"
       />
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 p-2.5 mb-2.5 rounded"
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
@@ -48,29 +48,5 @@ const LoginScreen: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
-  error: {
-    color: 'red',
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-});
 
 export default LoginScreen;

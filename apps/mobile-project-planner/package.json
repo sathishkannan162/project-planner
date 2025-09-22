@@ -21,5 +21,9 @@
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "nativewind": "^4.2.1",
+    "tailwindcss": "^3.4.0"
+  }
 }
