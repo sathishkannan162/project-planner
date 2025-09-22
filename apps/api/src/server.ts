@@ -1,3 +1,4 @@
+import type { CreateExpressContextOptions } from '@trpc/server/adapters/express';
 import { appRouter } from './trpc/router';
 import { auth } from './auth';
 import cors from 'cors';
@@ -21,11 +22,13 @@ app.use(
 app.use('/api/auth/*splat', toNodeHandler(auth));
 app.use(express.json());
 
+const createContext = ({ req, res }: CreateExpressContextOptions) => ({ req, res });
+
 app.use(
   '/trpc',
   createExpressMiddleware({
     router: appRouter,
-    createContext: ({ req }) => ({ req }),
+    createContext,
   })
 );
 

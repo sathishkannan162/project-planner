@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '../../../../packages/ui/components/ui/button';
+import { Button } from '@repo/ui/components/ui/button';
 import Link from 'next/link';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
@@ -24,9 +24,8 @@ export default function LoginPage() {
         password,
       });
       router.push('/');
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
+    } catch (err: unknown) {
+      setError('Invalid email or password');
     } finally {
       setLoading(false);
     }

@@ -9,15 +9,11 @@ function TRPCReactProvider({ children }: { children: React.ReactNode }) {
   const [queryClient] = React.useState(() => new QueryClient());
 
   return (
-    <>
-      {/* <SessionProvider client={authClient}> */}
-      <api.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
-      </api.Provider>
-      {/* </SessionProvider> */}
-    </>
+    <api.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
+    </api.Provider>
   );
 }
 

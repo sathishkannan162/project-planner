@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '../../../../packages/ui/components/ui/button';
+import { Button } from '@repo/ui/components/ui/button';
 import Link from 'next/link';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
@@ -22,6 +22,12 @@ export default function RegisterPage() {
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
       setLoading(false);
       return;
     }

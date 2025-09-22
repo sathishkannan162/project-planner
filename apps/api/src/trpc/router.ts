@@ -15,6 +15,7 @@ const authMiddleware = t.middleware(async ({ ctx, next }) => {
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(ctx.req.headers),
   });
+  console.log(session, 'session')
 
   if (!session) {
     throw new TRPCError({ code: 'UNAUTHORIZED' });
