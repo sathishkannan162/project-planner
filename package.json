@@ -4,6 +4,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@repo/project-planner",
+    "dev:api": "turbo run dev --filter=@repo/api",
     "lint": "ultracite lint",
     "format": "ultracite format",
     "check-types": "turbo run check-types"
