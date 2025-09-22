@@ -1,9 +1,14 @@
 import { appRouter } from './trpc/router';
+import cors from 'cors';
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import express from 'express';
 
 const app = express();
 const port = process.env.PORT || 3001;
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+}));
 
 app.use(express.json());
 
