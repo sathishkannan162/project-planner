@@ -2,8 +2,11 @@ import { appRouter } from './trpc/router';
 import { auth } from './auth';
 import cors from 'cors';
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
+import dotenv from 'dotenv';
 import express from 'express';
 import { toNodeHandler } from 'better-auth/node';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;

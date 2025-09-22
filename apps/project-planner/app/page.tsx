@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Image, { type ImageProps } from 'next/image';
 import { api } from '../lib/trpc';
 
@@ -73,8 +73,10 @@ export default function Home() {
         </div>
         <Button variant="outline">Open alert</Button>
 
-        <div className="mt-8 p-4 border rounded">
-          <h2 className="text-lg font-semibold mb-2">tRPC API Example (Powered by React Query)</h2>
+        <div className="mt-8 rounded border p-4">
+          <h2 className="mb-2 font-semibold text-lg">
+            tRPC API Example (Powered by React Query)
+          </h2>
           {helloQuery.isLoading && <p>Loading...</p>}
           {helloQuery.error && <p>Error: {helloQuery.error.message}</p>}
           {helloQuery.data && <p>{helloQuery.data}</p>}
