@@ -49,4 +49,8 @@ Future procedures can be added to the router in `src/trpc/router.ts`.
 - tRPC uses the Express adapter for seamless integration.
 - All procedures are type-safe with Zod validation.
 - Shared TypeScript config from `@repo/typescript-config`.
-- For client-side integration (e.g., in Next.js app), install `@trpc/client` and `@trpc/react-query` in the consuming package.
+- For client-side integration (e.g., in Next.js app), install `@trpc/client`, `@trpc/react-query`, `@trpc/server` (for types), and `@tanstack/react-query` in the consuming package.
+- Create a tRPC client in `lib/trpc.ts` using `createTRPCReact` and `httpBatchLink` pointing to `http://localhost:3001/trpc`.
+- Wrap the app in `layout.tsx` with `TRPCReactProvider` and `QueryClientProvider`.
+- Use path mapping in `tsconfig.json` for importing types: `"api/*": ["../../apps/api/src/*"]`.
+- Example client usage: Import `api` from `lib/trpc` and use `api.hello.useQuery({ name: 'World' })`.
