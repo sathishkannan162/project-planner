@@ -22,5 +22,7 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
-  }
+  },
+  "prettier.enable": false,
+  "tailwindCSS.experimental.configFile": "packages/ui/styles/globals.css"
 }
