@@ -2,49 +2,22 @@
 
 import { Button } from '@repo/ui/components/ui/button';
 import Link from 'next/link';
-import { authClient } from '@/lib/auth-client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRegister } from '@/lib/useRegister';
 
 export default function RegisterPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      setLoading(false);
-      return;
-    }
-
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      await authClient.signUp.email({
-        email,
-        password,
-        name,
-      });
-      router.push('/');
-    } catch (err: unknown) {
-      setError((err as Error).message || 'Registration failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    error,
+    loading,
+    handleSubmit,
+  } = useRegister();
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
@@ -65,6 +38,7 @@ export default function RegisterPage() {
                 name="name"
                 type="text"
                 required
+                autoComplete="name"
                 className="relative block w-full rounded-t-md border-0 px-3 py-1.5 text-gray-900 ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm sm:leading-6"
                 placeholder="Full name"
                 value={name}
@@ -80,6 +54,7 @@ export default function RegisterPage() {
                 name="email"
                 type="email"
                 required
+                autoComplete="email"
                 className="relative block w-full px-3 py-1.5 text-gray-900 ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm sm:leading-6"
                 placeholder="Email address"
                 value={email}
@@ -95,6 +70,7 @@ export default function RegisterPage() {
                 name="password"
                 type="password"
                 required
+                autoComplete="password"
                 className="relative block w-full px-3 py-1.5 text-gray-900 ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm sm:leading-6"
                 placeholder="Password"
                 value={password}
@@ -110,6 +86,7 @@ export default function RegisterPage() {
                 name="confirmPassword"
                 type="password"
                 required
+                autoComplete="password"
                 className="relative block w-full rounded-b-md border-0 px-3 py-1.5 text-gray-900 ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-indigo-600 focus:ring-inset sm:text-sm sm:leading-6"
                 placeholder="Confirm password"
                 value={confirmPassword}
