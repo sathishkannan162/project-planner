@@ -15,6 +15,20 @@
       "when": 1758527180231,
       "tag": "0001_huge_spyke",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1758535429236,
+      "tag": "0002_futuristic_snowbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1758535758763,
+      "tag": "0003_dapper_spectrum",
+      "breakpoints": true
     }
   ]
 }
