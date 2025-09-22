@@ -1,3 +1,5 @@
+import { createOpenApiExpressMiddleware, generateOpenApiDocument } from "trpc-to-openapi";
+
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import { appRouter } from "./trpc/router";
 import { auth } from "./auth";
@@ -39,8 +41,46 @@ app.use(
   })
 );
 
+app.use(
+  "/api",
+  createOpenApiExpressMiddleware({
+    router: appRouter,
+    createContext,
+  })
+);
+
+app.use(
+  "/api",
+  createOpenApiExpressMiddleware({
+    router: appRouter,
+    createContext,
+  })
+);
+
 app.get("/", (_req, res) => {
   res.json({ message: "Welcome to the Project Planner API" });
+});
+
+app.get("/openapi.json", (_req, res) => {
+  res.json(
+    generateOpenApiDocument(appRouter, {
+      title: "Project Planner API",
+      description: "API for project planning",
+      version: "1.0.0",
+      baseUrl: `http://localhost:${port}`,
+    })
+  );
+});
+
+app.get("/openapi.json", (_req, res) => {
+  res.json(
+    generateOpenApiDocument(appRouter, {
+      title: "Project Planner API",
+      description: "API for project planning",
+      version: "1.0.0",
+      baseUrl: `http://localhost:${port}`,
+    })
+  );
 });
 
 app.listen(port, () => {
