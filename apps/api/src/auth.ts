@@ -13,3 +13,5 @@ export const auth = betterAuth({
     enabled: true,
   },
 });
+
+export type Auth = typeof auth;
