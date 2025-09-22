@@ -24,7 +24,7 @@ export default function LoginPage() {
         password,
       });
       router.push('/');
-    } catch (err: unknown) {
+    } catch (_err: unknown) {
       setError('Invalid email or password');
     } finally {
       setLoading(false);

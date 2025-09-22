@@ -8,14 +8,17 @@ import { fromNodeHeaders } from 'better-auth/node';
 import { tasks } from '../db/schema/task';
 import { z } from 'zod';
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const t = initTRPC.context<{ req: IncomingMessage; session?: any }>().create();
+const t = initTRPC
+  .context<{
+    req: IncomingMessage;
+    session?: ReturnType<typeof auth.api.getSession>;
+  }>()
+  .create();
 
 const authMiddleware = t.middleware(async ({ ctx, next }) => {
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(ctx.req.headers),
   });
-  console.log(session, 'session')
 
   if (!session) {
     throw new TRPCError({ code: 'UNAUTHORIZED' });

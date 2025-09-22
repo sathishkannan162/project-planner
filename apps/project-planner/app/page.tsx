@@ -1,28 +1,11 @@
 'use client';
-import Image, { type ImageProps } from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { authClient } from '../lib/auth-client';
-import { api } from '../lib/trpc';
 
 import { Button } from '@repo/ui/components/ui/button';
+import { api } from '../lib/trpc';
+import { authClient } from '../lib/auth-client';
 import styles from './page.module.css';
-
-type Props = Omit<ImageProps, 'src'> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
