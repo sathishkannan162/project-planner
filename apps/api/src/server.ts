@@ -1,3 +1,4 @@
+import { BatchSpanProcessor, ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
 import {
   createOpenApiExpressMiddleware,
   generateOpenApiDocument,
@@ -5,17 +6,27 @@ import {
 import { functions, inngest } from "./inngest";
 
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
+import { NodeSDK } from '@opentelemetry/sdk-node';
 import { appRouter } from "./trpc/router";
 import { auth } from "./auth";
 import cors from "cors";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import dotenv from "dotenv";
 import express from "express";
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { serve } from "inngest/express";
 import swaggerUi from "swagger-ui-express";
 import { toNodeHandler } from "better-auth/node";
 
 dotenv.config();
+
+const sdk = new NodeSDK({
+  traceExporter: new ConsoleSpanExporter(),
+  spanProcessor: new BatchSpanProcessor(new ConsoleSpanExporter()),
+  instrumentations: [getNodeAutoInstrumentations()],
+});
+
+sdk.start();
 
 const app = express();
 const port = process.env.PORT || 3001;

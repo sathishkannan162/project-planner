@@ -7,6 +7,7 @@ import { db } from "../db/index";
 import { eq } from "drizzle-orm";
 import { fromNodeHeaders } from "better-auth/node";
 import { tasks } from "../db/schema/task";
+import { trace } from "@opentelemetry/api";
 import { z } from "zod";
 
 const t = initTRPC
@@ -61,10 +62,23 @@ export const appRouter = t.router({
       )
     )
     .query(async ({ ctx }) => {
-      return await db
-        .select()
-        .from(tasks)
-        .where(eq(tasks.userId, ctx.session.user.id));
+      const tracer = trace.getTracer("api-trpc");
+      return await tracer.startActiveSpan("getTasks", async (span) => {
+        try {
+          const result = await db
+            .select()
+            .from(tasks)
+            .where(eq(tasks.userId, ctx.session.user.id));
+          span.setAttribute("tasks.count", result.length);
+          return result;
+        } catch (error) {
+          span.recordException(error as Error);
+          span.setStatus({ code: 2, message: "Error fetching tasks" });
+          throw error;
+        } finally {
+          span.end();
+        }
+      });
     }),
 
   createTask: protectedProcedure
@@ -86,25 +100,39 @@ export const appRouter = t.router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const newTask = (
-        await db
-          .insert(tasks)
-          .values({
-            title: input.title,
-            description: input.description,
-            userId: ctx.session.user.id,
-          })
-          .returning()
-      )[0];
+      const tracer = trace.getTracer("api-trpc");
+      return await tracer.startActiveSpan("createTask", async (span) => {
+        try {
+          span.setAttribute("task.title", input.title);
+          const newTask = (
+            await db
+              .insert(tasks)
+              .values({
+                title: input.title,
+                description: input.description,
+                userId: ctx.session.user.id,
+              })
+              .returning()
+          )[0];
 
-      if (!newTask) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to create task",
-        });
-      }
+          if (!newTask) {
+            span.setStatus({ code: 2, message: "Failed to create task" });
+            throw new TRPCError({
+              code: "INTERNAL_SERVER_ERROR",
+              message: "Failed to create task",
+            });
+          }
 
-      return newTask;
+          span.setAttribute("task.id", newTask.id);
+          return newTask;
+        } catch (error) {
+          span.recordException(error as Error);
+          span.setStatus({ code: 2, message: "Error creating task" });
+          throw error;
+        } finally {
+          span.end();
+        }
+      });
     }),
 });
 
