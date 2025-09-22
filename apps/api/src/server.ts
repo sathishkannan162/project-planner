@@ -1,9 +1,15 @@
+import { appRouter } from './trpc/router';
+import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import express from 'express';
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
+
+app.use('/trpc', createExpressMiddleware({
+  router: appRouter,
+}));
 
 app.get('/', (_req, res) => {
   res.json({ message: 'Welcome to the Project Planner API' });

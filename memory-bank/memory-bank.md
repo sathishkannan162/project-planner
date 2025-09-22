@@ -32,6 +32,7 @@ This document serves as a reference for LLMs working on the project-planner code
 - **Packages**:
   - `@repo/ui`: Shared UI components
   - `@repo/typescript-config`: Shared TypeScript configurations
+  - `repo/api` - api built with express.
 
 ### App Locations
 - `project-planner`: `apps/project-planner/`
