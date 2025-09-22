@@ -3,13 +3,16 @@
 This document serves as a reference for LLMs working on the project-planner codebase, listing the key technologies, frameworks, libraries, and tools used in the project.
 
 ## Project Overview
-- **Type**: Monorepo web application
+- **Type**: Monorepo web and mobile application
 - **Main App**: Next.js React application for project planning
+- **Mobile App**: Expo React Native application for project planning
 - **Architecture**: Turborepo monorepo with shared packages
 
 ## Frameworks & Libraries
 - **Frontend Framework**: React 19.0.0
 - **Web Framework**: Next.js 15.2.1 (with Turbopack for development)
+- **Mobile Framework**: Expo SDK 54.0.9
+- **React Native**: 0.81.4
 - **Styling**: Tailwind CSS 4.1.3
 
 ## UI Components & Design System
@@ -28,7 +31,7 @@ This document serves as a reference for LLMs working on the project-planner code
 
 ## Project Structure
 - **Root**: Monorepo root with shared configs
-- **Apps**: Next.js application in `apps/project-planner/`
+- **Apps**: Next.js application in `apps/project-planner/` and Expo app in `apps/mobile-project-planner/`
 - **Packages**:
   - `@repo/ui`: Shared UI components
   - `@repo/typescript-config`: Shared TypeScript configurations
@@ -36,6 +39,7 @@ This document serves as a reference for LLMs working on the project-planner code
 
 ### App Locations
 - `project-planner`: `apps/project-planner/`
+- `mobile-project-planner`: `apps/mobile-project-planner/`
 
 ### Package Locations
 - `@repo/typescript-config`: `packages/typescript-config/`
@@ -43,6 +47,7 @@ This document serves as a reference for LLMs working on the project-planner code
 
 ## Key Dependencies Summary
 - React ecosystem: React 19, Next.js 15, TypeScript
+- Mobile: Expo 54, React Native 0.81
 - Styling: Tailwind CSS 4, PostCSS, shadcn/ui
 - Build: Turborepo, pnpm
 - Quality: Biome (with ultracite), TypeScript strict mode
