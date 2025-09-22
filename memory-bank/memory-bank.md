@@ -8,6 +8,9 @@ This document serves as a reference for LLMs working on the project-planner code
 - **Mobile App**: Expo React Native application for project planning
 - **Architecture**: Turborepo monorepo with shared packages
 
+## Commands
+- always use pnpm over npm commands. And use pnpx instead of npx commands
+
 ## Frameworks & Libraries
 - **Frontend Framework**: React 19.0.0
 - **Web Framework**: Next.js 15.2.1 (with Turbopack for development)
