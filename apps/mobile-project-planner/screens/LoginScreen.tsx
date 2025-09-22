@@ -1,8 +1,8 @@
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useLogin } from '../lib/useLogin';
+import { useNavigation } from '@react-navigation/native';
 
 type RootStackParamList = {
   Home: undefined;
@@ -46,7 +46,7 @@ const LoginScreen: React.FC = () => {
           <View className="-space-y-px rounded-md shadow-sm">
             <View>
               <TextInput
-                className="relative block w-full rounded-t-md border-0 px-3 py-1.5 text-gray-900 text-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-indigo-600 focus:ring-inset"
+                className='relative mb-4 block w-full rounded-t-md border-0 px-3 py-3 text-gray-900 text-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-indigo-600 focus:ring-inset'
                 placeholder="Email address"
                 value={email}
                 onChangeText={setEmail}
@@ -57,7 +57,7 @@ const LoginScreen: React.FC = () => {
             </View>
             <View>
               <TextInput
-                className="relative block w-full rounded-b-md border-0 px-3 py-1.5 text-gray-900 text-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-indigo-600 focus:ring-inset"
+                className='relative mb-4 block w-full rounded-t-md border-0 px-3 py-3 text-gray-900 text-sm ring-1 ring-gray-300 ring-inset placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-indigo-600 focus:ring-inset'
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
