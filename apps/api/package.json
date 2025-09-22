@@ -6,19 +6,28 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@trpc/server": "^11.5.1",
     "@types/express": "^5.0.3",
     "cors": "^2.8.5",
+    "drizzle-orm": "^0.35.0",
     "express": "^5.1.0",
+    "pg": "^8.12.0",
     "tsx": "^4.20.5",
     "typescript": "5.8.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/cors": "^2.8.19"
+    "@types/cors": "^2.8.19",
+    "@types/node": "^22.18.3",
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.4"
   }
 }
