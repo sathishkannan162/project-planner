@@ -11,7 +11,7 @@ export default function Home() {
   const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
   const helloQuery = api.hello.useQuery({ name: 'World' });
-  const getTasksQuery = api.getTasks.useQuery(undefined, {
+  const getTasksQuery = api.getTasks.useQuery({}, {
     enabled: !!session,
   });
   const utils = api.useUtils();
